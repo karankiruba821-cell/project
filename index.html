@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cottrell Institute</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="img" href="favicon-192.png">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <div class="brand">
+        <div class="brand-mark">CI</div>
+        <div class="brand-text">
+          <div class="name">Cottrell Institute</div>
+          <div class="tag">Hartford, Connecticut</div>
+        </div>
+      </div>
+      <nav>
+        <ul id="navMenu">
+          <li><a href="#top">Home</a></li>
+          <li><a href="#register">Registration</a></li>
+          <li><a href="#ledger">My Submissions</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section class="hero" id="top">
+    <video class="hero-video" autoplay muted loop playsinline poster="hero-poster.jpg">
+      <source src="video/Hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Cottrell Institute & Admissions Open</span>
+      <h1>Empowering Your Future,<br>One Course at a Time</h1>
+      <p>Join a community of ours to make your future far better and make your life super</p>
+      <a href="#register" class="hero-btn">Start Your Registration</a>
+    </div>
+  </section>
+  <main>
+    <div class="page-intro">
+      <div>
+        <span class="eyebrow">Admissions</span>
+        <h1>Student Registration</h1>
+        <p>Complete the form below</p>
+      </div>
+    <section class="card" id="register">
+      <h2>Application Form</h2>
+      <p class="sub">All information is validated before your entry is added to the register below.</p>
+
+      <form id="regForm">
+
+        <div class="banner success" id="successBanner">Registration submitted successfully &mdash; your entry has been added to the ledger below.</div>
+
+        <div class="field full" id="fullNameField">
+          <label for="fullName">Full Name <span class="req">*</span></label>
+          <input type="text" id="fullName" placeholder="name">
+          <span class="error-msg" id="err-fullName"></span>
+        </div>
+
+        <div class="field" id="emailField">
+          <label for="email">Email <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="mail id">
+          <span class="error-msg" id="err-email"></span>
+        </div>
+
+        <div class="field" id="mobileField">
+          <label for="mobile">Mobile Number <span class="req">*</span></label>
+          <input type="tel" id="mobile" placeholder="10-digit number" maxlength="10">
+          <span class="error-msg" id="err-mobile"></span>
+        </div>
+
+        <div class="field full" id="genderField">
+          <label>Gender <span class="req">*</span></label>
+          <div class="choice-group" id="genderGroup">
+            <label class="choice-pill"><input type="radio" name="gender" value="Male"> Male</label>
+            <label class="choice-pill"><input type="radio" name="gender" value="Female"> Female</label>
+            <label class="choice-pill"><input type="radio" name="gender" value="Other"> Other</label>
+          </div>
+          <span class="error-msg" id="err-gender"></span>
+        </div>
+
+        <div class="field" id="departmentField">
+          <label for="department">Department <span class="req">*</span></label>
+          <select id="department">
+            <option value="">Select department</option>
+            <option>Computer Science</option>
+            <option>Business Administration</option>
+            <option>Mechanical Engineering</option>
+            <option>Design &amp; Media</option>
+            <option>Health Sciences</option>
+          </select>
+          <span class="error-msg" id="err-department"></span>
+        </div>
+
+        <div class="field" id="courseField">
+          <label for="course">Course <span class="req">*</span></label>
+          <select id="course">
+            <option value="">Select course</option>
+            <option>Full-Stack Web Development</option>
+            <option>Data Analytics</option>
+            <option>Digital Marketing</option>
+            <option>UI/UX Design</option>
+            <option>Business Analytics</option>
+            <option>Applied Robotics</option>
+          </select>
+          <span class="error-msg" id="err-course"></span>
+        </div>
+
+        <div class="field full">
+          <label>Skills</label>
+          <div class="choice-group" id="skillsGroup">
+            <label class="choice-pill"><input type="checkbox" value="Communication"> Communication</label>
+            <label class="choice-pill"><input type="checkbox" value="Leadership"> Leadership</label>
+            <label class="choice-pill"><input type="checkbox" value="Programming"> Programming</label>
+            <label class="choice-pill"><input type="checkbox" value="Design"> Design</label>
+            <label class="choice-pill"><input type="checkbox" value="Analytics"> Analytics</label>
+          </div>
+        </div>
+
+        <div class="field" id="dobField">
+          <label for="dob">Date of Birth <span class="req">*</span></label>
+          <input type="date" id="dob">
+          <span class="error-msg" id="err-dob"></span>
+        </div>
+
+        <div class="field full" id="addressField">
+          <label for="address">Address <span class="req">*</span></label>
+          <textarea rows="4" id="address" placeholder="address"></textarea>
+          <span class="error-msg" id="err-address"></span>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Register</button>
+          <button type="reset" class="btn-ghost" id="resetBtn">Clear Form</button>
+        </div>
+      </form>
+    </section>
+    <section class="card ledger-card" id="ledger">
+      <h2>Submitted Entries</h2>
+      <p class="sub">Every successful registration appears here & no page reload required.</p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Mobile</th>
+              <th>Gender</th>
+              <th>Department</th>
+              <th>Course</th>
+              <th>Skills</th>
+              <th>DOB</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerBody">
+            <tr class="empty-row" id="emptyRow">
+              <td colspan="10">No entries yet. Submit the form above to see it appear here.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-wrap">
+      <div>
+        <h6>Cottrell Institute</h6>
+        <p>&copy; 2026 Cottrell Institute, Hartford, Connecticut. All rights reserved.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#top">Home</a>
+        <a href="#register">Registration</a>
+        <a href="#ledger">Submissions</a>
+      </div>
+    </div>
+  </footer>
+  <script src="script2.js"></script>
+
+</body>
+</html>
