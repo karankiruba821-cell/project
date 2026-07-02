@@ -1,89 +1,145 @@
-
 var form = document.getElementById("regForm");
-var count = 0;
+var table = document.getElementById("ledgerBody");
+var emptyRow = document.getElementById("emptyRow");
+var success = document.getElementById("successBanner");
 
-form.onsubmit = function (event) {
+var count = 1;
 
-    event.preventDefault();
+form.addEventListener("submit", function (e) {
 
-    var name = document.getElementById("fullName").value.trim();
-    var email = document.getElementById("email").value.trim();
-    var mobile = document.getElementById("mobile").value.trim();
+    e.preventDefault();
+
+    document.querySelectorAll(".error-msg").forEach(function (x) {
+        x.innerHTML = "";
+    });
+
+    document.querySelectorAll(".field").forEach(function (x) {
+        x.classList.remove("invalid");
+    });
+
+    var name = document.getElementById("fullName").value;
+    var email = document.getElementById("email").value;
+    var mobile = document.getElementById("mobile").value;
     var department = document.getElementById("department").value;
     var course = document.getElementById("course").value;
     var dob = document.getElementById("dob").value;
-    var address = document.getElementById("address").value.trim();
+    var address = document.getElementById("address").value;
 
     var gender = "";
-    var genderList = document.getElementsByName("gender");
+    var genders = document.getElementsByName("gender");
 
-    for (var i = 0; i < genderList.length; i++) {
-        if (genderList[i].checked) {
-            gender = genderList[i].value;
+    for (var i = 0; i < genders.length; i++) {
+        if (genders[i].checked) {
+            gender = genders[i].value;
         }
     }
 
-    var skills = "";
-    var skillList = document.querySelectorAll("#skillsGroup input[type='checkbox']");
+    var skills = [];
+    var check = document.querySelectorAll("#skillsGroup input");
 
-    for (var i = 0; i < skillList.length; i++) {
-        if (skillList[i].checked) {
-            skills += skillList[i].value + " ";
+    for (var i = 0; i < check.length; i++) {
+        if (check[i].checked) {
+            skills.push(check[i].value);
         }
     }
 
-    if (
-        name == "" ||
-        email == "" ||
-        mobile == "" ||
-        gender == "" ||
-        department == "" ||
-        course == "" ||
-        dob == "" ||
-        address == ""
-    ) {
-        alert("Please fill all the fields.");
-        return;
+    var valid = true;
+
+    if (name == "") {
+        document.getElementById("err-fullName").innerHTML = "Enter Name";
+        document.getElementById("fullNameField").classList.add("invalid");
+        valid = false;
     }
 
-    count++;
-
-    document.getElementById("ledgerCount").textContent = count;
-
-    var emptyRow = document.getElementById("emptyRow");
-    if (emptyRow) {
-        emptyRow.remove();
+    if (email == "") {
+        document.getElementById("err-email").innerHTML = "Enter Email";
+        document.getElementById("emailField").classList.add("invalid");
+        valid = false;
+    } else if (!email.includes("@") || !email.includes(".")) {
+        document.getElementById("err-email").innerHTML = "Invalid Email";
+        document.getElementById("emailField").classList.add("invalid");
+        valid = false;
     }
 
-    var tbody = document.getElementById("ledgerBody");
+    if (mobile == "") {
+        document.getElementById("err-mobile").innerHTML = "Enter Mobile";
+        document.getElementById("mobileField").classList.add("invalid");
+        valid = false;
+    } else if (mobile.length != 10 || isNaN(mobile)) {
+        document.getElementById("err-mobile").innerHTML = "Enter 10 digits";
+        document.getElementById("mobileField").classList.add("invalid");
+        valid = false;
+    }
 
-    var row = document.createElement("tr");
+    if (gender == "") {
+        document.getElementById("err-gender").innerHTML = "Select Gender";
+        document.getElementById("genderField").classList.add("invalid");
+        valid = false;
+    }
 
-    row.innerHTML =
-        "<td>" + count + "</td>" +
-        "<td>" + name + "</td>" +
-        "<td>" + email + "</td>" +
-        "<td>" + mobile + "</td>" +
-        "<td>" + gender + "</td>" +
-        "<td>" + department + "</td>" +
-        "<td>" + course + "</td>" +
-        "<td>" + skills + "</td>" +
-        "<td>" + dob + "</td>" +
-        "<td>" + address + "</td>";
+    if (department == "") {
+        document.getElementById("err-department").innerHTML = "Select Department";
+        document.getElementById("departmentField").classList.add("invalid");
+        valid = false;
+    }
 
-    tbody.appendChild(row);
+    if (course == "") {
+        document.getElementById("err-course").innerHTML = "Select Course";
+        document.getElementById("courseField").classList.add("invalid");
+        valid = false;
+    }
 
-    document.getElementById("successBanner").classList.add("show");
+    if (dob == "") {
+        document.getElementById("err-dob").innerHTML = "Select DOB";
+        document.getElementById("dobField").classList.add("invalid");
+        valid = false;
+    } else {
 
-    form.reset();
+        var birth = new Date(dob);
+        var today = new Date();
 
-    setTimeout(function () {
-        document.getElementById("successBanner").classList.remove("show");
-    }, 3000);
-};
-var resetBtn = document.getElementById("resetBtn");
+        var age = today.getFullYear() - birth.getFullYear();
 
-resetBtn.onclick = function () {
-    form.reset();
-    document.getElementById("successBanner").classList.remove("show");
-};
+        if (age <= 18) {
+            document.getElementById("err-dob").innerHTML = "Age must be above 18";
+            document.getElementById("dobField").classList.add("invalid");
+            valid = false;
+        }
+    }
+
+    if (address == "") {
+        document.getElementById("err-address").innerHTML = "Enter Address";
+        document.getElementById("addressField").classList.add("invalid");
+        valid = false;
+    }
+
+    if (valid == true) {
+
+        if (emptyRow) {
+            emptyRow.remove();
+            emptyRow = null;
+        }
+
+        var row = table.insertRow();
+
+        row.insertCell(0).innerHTML = count++;
+        row.insertCell(1).innerHTML = name;
+        row.insertCell(2).innerHTML = email;
+        row.insertCell(3).innerHTML = mobile;
+        row.insertCell(4).innerHTML = gender;
+        row.insertCell(5).innerHTML = department;
+        row.insertCell(6).innerHTML = course;
+        row.insertCell(7).innerHTML = skills.join(", ");
+        row.insertCell(8).innerHTML = dob;
+        row.insertCell(9).innerHTML = address;
+
+        success.classList.add("show");
+
+        form.reset();
+
+        setTimeout(function () {
+            success.classList.remove("show");
+        }, 3000);
+    }
+
+});
